@@ -1,0 +1,43 @@
+<!-- <div class="signup center-block jumbotron">
+  <h1>Signup</h1>
+  <form role="form" (submit)="signup($event, username.value, password.value)">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" #username class="form-control" id="username" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" #password class="form-control" id="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+</div> -->
+
+
+
+<!-- We’ll display the login form only if the user is not logged in -->
+  <div class="signup jumbotron center-block"  *ngIf="!authenticated" >
+    <h2>Signup</h2>
+    <!-- We are going to build a reactive form and use many of the concepts we learend in the previous section in regards to validation. -->
+    <form [formGroup]="signupForm" (ngSubmit)="signup(signupForm.value)">
+      <input class="form-control" type="hidden" [formControl]="signupForm.controls['user_type']" value="2">
+      <div class="form-group" [ngClass]="{'has-error':!signupForm.controls['email'].valid && signupForm.controls['email'].touched}">
+        <label>Email:</label>
+        <input class="form-control" type="text" placeholder="enter email here" [formControl]="signupForm.controls['email']">
+        <div *ngIf="signupForm.controls['email'].hasError('required') && signupForm.controls['email'].touched" class="alert alert-danger">You must add an email.</div>
+        <div *ngIf="signupForm.controls['email'].hasError('pattern') && signupForm.controls['email'].touched" class="alert alert-danger">Email must be in valid format.</div>
+        <div *ngIf="signupForm.controls['email'].hasError('notexist') && signupForm.controls['email'].touched" class="alert alert-danger">Email is not exist on system.</div>
+      </div>
+      <div class="form-group" [ngClass]="{'has-error':!signupForm.controls['password'].valid && signupForm.controls['password'].touched}">
+        <label>Password:</label>
+        <input class="form-control" type="password" placeholder="Password" [formControl]="signupForm.controls['password']">
+        <div *ngIf="signupForm.controls['password'].hasError('required') && signupForm.controls['password'].touched" class="alert alert-danger">You must add a password.</div>
+        <div *ngIf="(signupForm.controls['password'].hasError('minlength') || signupForm.controls['password'].hasError('maxlength')) && signupForm.controls['password'].touched" class="alert alert-danger">Password length is between 8-16.</div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <error [error]="error"></error>
+      </div>
+
+    </form>
+</div>

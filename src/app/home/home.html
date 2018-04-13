@@ -1,0 +1,96 @@
+<!--component html goes here -->
+<admin-header></admin-header>
+<!-- include aside here -->
+<sidebar></sidebar>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Home
+      <small>Control panel</small>
+    </h1>
+
+  </section>
+  <!-- get count of categories, sub categories, questionnaires, pages etc -->
+
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+          <div class="inner">
+            <h3 *ngIf="!loading_send">{{total_send}}</h3>
+            <img *ngIf="loading_send" class="bal-loader" src="/public/img/msg.gif" alt="loading" />
+            <img [hidden]="loading_send" (load)="onLoad()" src="{{ source }}" />
+            <p>Total Send Money</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+
+
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+          <div class="inner">
+            <h3 *ngIf="!loading_recd">{{total_recd}}</h3>
+            <img *ngIf="loading_recd" class="bal-loader" src="/public/img/msg.gif" alt="loading" />
+            <img [hidden]="loading_recd" (load)="onLoad()" src="{{ source }}" />
+            <p>Total Received Money</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+          <div class="inner">
+            <h3 *ngIf="!loading">{{balance}}</h3>
+            <img *ngIf="loading" class="bal-loader" src="/public/img/msg.gif" alt="loading" />
+            <img [hidden]="loading" (load)="onLoad()" src="{{ source }}" />
+            <p>Total Balance</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <!-- ./col -->
+    </div>
+    <!-- /.row -->
+    <!-- Main row -->
+    <div class="row">
+      <!-- Left col -->
+      <section>
+        <!-- <button class="btn btn-success" (click)="start1()" id="start_1">start 1</button>{{timer1}}<button class="btn btn-info" (click)="clear1()" id="pause_1">pause 1</button>
+        <br/>
+        <button class="btn btn-success" (click)="start2()" id="start_1">start 2</button>{{timer2}}<button class="btn btn-info" (click)="clear2()" id="pause_1">pause 2</button>
+        <br/>
+        <button class="btn btn-success" (click)="start3()" id="start_1">start 3</button>{{timer3}}<button class="btn btn-info" (click)="clear3()" id="pause_1">pause 3</button> -->
+        
+      
+       </section>
+      <!-- /.Left col -->
+      <!-- right col (We are only adding the ID to make the widgets sortable)-->
+      <section> </section>
+      <!-- right col -->
+    </div>
+    <!-- /.row (main row) -->
+
+  </section>
+  <!-- /.content -->
+</div>

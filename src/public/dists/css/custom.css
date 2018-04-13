@@ -1,0 +1,43 @@
+.btn-primary {
+    background-color: #56caf2;
+    border-color: #56caf2;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary.hover {
+    background-color: #dc3795;
+    border-color: #dc3795;
+}
+
+.btn-info {
+    background-color: #56caf2;
+    border-color: #56caf2;
+}
+
+.btn-info:hover, .btn-info:active, .btn-info.hover {
+    background-color: #dc3795;
+    border-color: #dc3795;
+}
+
+.skin-blue .main-header .logo {
+    background-color: #42b6cc;
+}
+
+.skin-blue .main-header .navbar {
+    background-color: #56caf2;
+}
+
+.btn-light:hover, .btn-light:active, .btn-light.hover {
+    background-color: darkgrey;
+    border-color: darkgrey;
+}
+
+.table a:hover
+{
+    color: #dc3795;
+}
+
+.bal-loader{
+  display: inline-block;
+  width: auto;
+  height: 70px;
+}

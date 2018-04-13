@@ -1,0 +1,79 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "ng4-app-practice"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico",
+        "public/dists/img",
+        "public/img",
+        {
+          "glob": "**/*",
+          "input": "../node_modules/ui-common/src/assets/images",
+          "output": "public/dists/img"
+        }
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "styles.css",
+        "public/bower_component/bootstrap/dist/css/bootstrap.min.css",
+        "public/dists/css/custom.css",
+        "public/bower_component/font-awesome/css/font-awesome.min.css",
+        "public/bower_component/Ionicons/css/ionicons.min.css",
+        "public/dists/css/AdminLTE.min.css",
+        "public/dists/css/skins/_all-skins.min.css",
+        "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css"
+      ],
+      "scripts": [
+        "public/bower_component/jquery/dist/jquery.min.js",
+        "public/dists/js/jquery.validate.min.js",
+        "public/bower_component/bootstrap/dist/js/bootstrap.min.js",
+        "../node_modules/ng2-toastr/bundles/ng2-toastr.min.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "component": {}
+  }
+}

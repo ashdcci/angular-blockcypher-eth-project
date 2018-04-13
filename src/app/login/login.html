@@ -1,0 +1,52 @@
+<!-- <div class="login jumbotron center-block">
+  <h1>Login</h1>
+  <form role="form" [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm.value)" >
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" #username formControlName="username" class="form-control" id="username" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" #password formControlName="password" class="form-control" id="password" placeholder="Password">
+  </div>
+  <button type="submit" [disabled]="!loginForm.valid" class="btn btn-default">Submit</button>
+    <a [routerLink]="['/signup']">Click here to Signup</a>
+</form>
+</div> -->
+
+
+
+<!-- We’ll display the login form only if the user is not logged in -->
+  <div class="login jumbotron center-block"  *ngIf="!authenticated">
+    <h2>Login Form</h2>
+    <!-- We are going to build a reactive form and use many of the concepts we learend in the previous section in regards to validation. -->
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm.value)">
+      <input class="form-control" type="hidden" [formControl]="loginForm.controls['user_type']" value="2">
+      <div class="form-group" [ngClass]="{'has-error':!loginForm.controls['email'].valid && loginForm.controls['email'].touched}">
+        <label>Email:</label>
+        <input class="form-control" type="text" placeholder="enter email here" [formControl]="loginForm.controls['email']">
+        <div *ngIf="loginForm.controls['email'].hasError('required') && loginForm.controls['email'].touched" class="alert alert-danger">You must add an email.</div>
+        <div *ngIf="loginForm.controls['email'].hasError('pattern') && loginForm.controls['email'].touched" class="alert alert-danger">Email must be in valid format.</div>
+        <div *ngIf="loginForm.controls['email'].hasError('notexist') && loginForm.controls['email'].touched" class="alert alert-danger">Email is not exist on system.</div>
+      </div>
+      <div class="form-group" [ngClass]="{'has-error':!loginForm.controls['password'].valid && loginForm.controls['password'].touched}">
+        <label>Password:</label>
+        <input class="form-control" type="password" placeholder="Password" [formControl]="loginForm.controls['password']">
+        <div *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched" class="alert alert-danger">You must add a password.</div>
+        <div *ngIf="(loginForm.controls['password'].hasError('minlength') || loginForm.controls['password'].hasError('maxlength')) && loginForm.controls['password'].touched" class="alert alert-danger">Password length is between 8-16.</div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a [routerLink]="['/signup']">New User, click here.</a>
+      </div>
+      <div *ngIf="errorMessage">{{errorMessage}}</div>
+      <div *ngIf="state?.errors?.remote">{{state?.errors?.remote}}</div>
+      <error [error]="error"></error>
+    </form>
+</div>
+  <!-- If the user is authenticated we’ll display their profile picture and email as well as provide a way to logout -->
+  <div class="jumbotron text-center" *ngIf="authenticated">
+    <img src="{{profile.picture}}" />
+    <h2>Welcome, {{profile.email}}</h2>
+    <a (click)="logout()">Logout</a>
+  </div>

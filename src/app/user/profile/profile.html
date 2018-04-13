@@ -1,0 +1,99 @@
+<!--component html goes here -->
+<admin-header></admin-header>
+<!-- include aside here -->
+<sidebar></sidebar>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      My Details
+      <small class="pull-right">My Address: {{user_address}}</small>
+    </h1>
+
+  </section>
+  <!-- get count of categories, sub categories, questionnaires, pages etc -->
+
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+      <!-- ./col -->
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+          <div class="inner">
+            <h3 *ngIf="!loading">{{balance}}</h3>
+            <img *ngIf="loading" class="bal-loader" src="/public/img/msg.gif" alt="loading" />
+            <img [hidden]="loading" (load)="onLoad()" src="{{ source }}" />
+            <p>Total Balance</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+          </div>
+
+        </div>
+      </div>
+      <!-- ./col -->
+      <!-- ./col -->
+    </div>
+    <!-- /.row -->
+    <!-- Main row -->
+    <div class="row">
+      <!-- Left col -->
+      <section class="content">
+        <h2>
+          Settings
+        </h2>
+
+        <div class="col-lg-6">
+          <form [formGroup]="profileForm" class="form-horizontal" (ngSubmit)="submitForm(profileForm.value)">
+                  <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">First Name</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" value="{{first_name}}" class="form-control" id="firstName" [formControl]="profileForm.controls['first_name']" placeholder="First Name">
+                      <div *ngIf="profileForm.controls['first_name'].hasError('required') && profileForm.controls['first_name'].touched" class="alert alert-danger">First Name is Required.</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">Last Name</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" value="{{last_name}}" class="form-control" id="lastName" [formControl]="profileForm.controls['last_name']" placeholder="Last Name">
+                      <div *ngIf="profileForm.controls['last_name'].hasError('required') && profileForm.controls['last_name'].touched" class="alert alert-danger">Last Name is Required.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+
+                    <div class="col-sm-10">
+                      <input [readonly]="true" type="email" value="{{email}}" class="form-control" id="inputEmail" placeholder="Email">
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-danger">Submit</button>
+                    </div>
+                  </div>
+                  <div *ngIf="errorMessage">{{errorMessage}}</div>
+                  <div *ngIf="state?.errors?.remote">{{state?.errors?.remote}}</div>
+                  <error [error]="error"></error>
+                </form>
+        </div>
+
+       </section>
+      <!-- /.Left col -->
+      <!-- right col (We are only adding the ID to make the widgets sortable)-->
+      <section> </section>
+      <!-- right col -->
+    </div>
+    <!-- /.row (main row) -->
+
+  </section>
+  <!-- /.content -->
+</div>
