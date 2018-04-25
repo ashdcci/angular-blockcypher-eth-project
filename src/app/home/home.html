@@ -69,6 +69,22 @@
         </div>
       </div>
       <!-- ./col -->
+
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+          <div class="inner">
+            <h3 *ngIf="!loading_token">{{total_token}}</h3>
+            <img *ngIf="loading_token" class="bal-loader" src="/public/img/msg.gif" alt="loading" />
+            <img [hidden]="loading_token" (load)="onLoad()" src="{{ source }}" />
+            <p>Total Token</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
       <!-- ./col -->
     </div>
     <!-- /.row -->

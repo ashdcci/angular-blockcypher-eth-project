@@ -21,9 +21,11 @@ export class Home {
   loading: boolean = true
   loading_send : boolean = true
   loading_recd : boolean = true
+  loading_token : boolean = true
   total_send: any = 0
   total_recd: any = 0
   recd_amount: any = 0
+  total_token : any = 0
   as1: any
   as2: any
   as3: any
@@ -44,37 +46,8 @@ export class Home {
     this.getBalance()
     this.getTotalSend()
     this.getTotalReceived()
+    this.getTotalToken()
     
-    this.as1 = setInterval(() => {
-      var d = new Date();
-      var s = d.getUTCSeconds();
-      var h = d.getHours()
-      var m = d.getMinutes()
-
-      var g = s + 1
-      this.timer1 = h+':'+m+':'+s
-      }, 1000);
-
-      this.as2 = setInterval(() => {
-        var d = new Date();
-    var s = d.getUTCSeconds();
-    var h = d.getHours()
-    var m = d.getMinutes()
-
-    this.timer2 = h+':'+m+':'+s
-        }, 1000);
-
-        this.as3 = setInterval(() => {
-          var d = new Date();
-    var s = d.getUTCSeconds();
-    var h = d.getHours()
-    var m = d.getMinutes()
-
-    this.timer3 = h+':'+m+':'+s
-          }, 1000);
-
-
-          console.log(this.as1, this.as2, this.as3)
   }
 
 
@@ -160,6 +133,16 @@ export class Home {
         this.total_recd = this.total_recd +' ฿'
     },
     error=>{
+      console.log(error)
+    })
+  }
+
+  getTotalToken(){
+    this.PlatformService.getTokenBalance().subscribe(response => {
+        this.loading_token = false
+        this.total_token = response.token +' AT$'
+    },
+    error => {
       console.log(error)
     })
   }

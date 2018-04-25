@@ -7,47 +7,61 @@ import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, retry } from 'rxjs/operators';
 import { contentHeaders } from '../common/headers';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class PlatformService{
 
   baseUrl :string =  'http://localhost:3003/'
+  PlatformcontentHeaders: any = new HttpHeaders()
 	constructor(private http:HttpClient){
+
+    this.PlatformcontentHeaders = contentHeaders
 	}
 
   login(body: any): Observable<any> {
-      return this.http.post<any>(this.baseUrl + 'user/login',body,{ headers: contentHeaders })
-              .map(res => res)
+      return this.http.post<any>(this.baseUrl + 'user/login',body,{ headers: this.PlatformcontentHeaders }).map(res => res).catch( err => this.handleError(err))
   }
 
   register(body: any): Observable<any> {
-      return this.http.post<any>(this.baseUrl + 'user/register',body, { headers: contentHeaders}).map(res => res)
+      return this.http.post<any>(this.baseUrl + 'user/register',body, { headers: this.PlatformcontentHeaders}).map(res => res).catch( err => this.handleError(err))
   }
 
   getUserBalance(): Observable<any> {
-    console.log(contentHeaders)
-    return this.http.post<any>(this.baseUrl + 'address/getAddressBalance','',{headers:contentHeaders}).map((res:any) => res)
+
+    this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
+    return this.http.post<any>(this.baseUrl + 'address/getAddressBalance','',{headers:this.PlatformcontentHeaders}).map((res:any) => res).catch( err => this.handleError(err))
   }
 
   getSendMoney(): Observable<any> {
-    return this.http.get<any>(this.baseUrl + 'transaction/getSendMoney',{headers:contentHeaders}).map(res => res)
+    this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
+    return this.http.get<any>(this.baseUrl + 'transaction/getSendMoney',{headers:this.PlatformcontentHeaders}).map(res => res).catch( err => this.handleError(err))
   }
 
 
   getRecdMoney(): Observable<any> {
-    return this.http.get<any>(this.baseUrl + 'transaction/getRecdMoney',{headers:contentHeaders}).map(res => res)
+    this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
+    return this.http.get<any>(this.baseUrl + 'transaction/getRecdMoney',{headers:this.PlatformcontentHeaders}).map(res => res).catch( err => this.handleError(err))
   }
 
   editProfile(body: any): Observable<any> {
-    return this.http.put<any>(this.baseUrl  +  'user/edit-profile',body,{headers:contentHeaders}).map(res => res)
+    this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
+    return this.http.put<any>(this.baseUrl  +  'user/edit-profile',body,{headers:this.PlatformcontentHeaders}).map(res => res).catch( err => this.handleError(err))
   }
 
   sendToken(body: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl + 'transaction/create', body, {headers: contentHeaders} ).map(res => res)
+    this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
+    return this.http.post<any>(this.baseUrl + 'transaction/create', body, {headers: this.PlatformcontentHeaders} ).map(res => res).catch( err => this.handleError(err))
   }
 
   getTransactionsList(body: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl+'transaction/getTransactions', body, {headers: contentHeaders} ).map(res => res)
+    this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
+    return this.http.post<any>(this.baseUrl+'transaction/getTransactions', body, {headers: this.PlatformcontentHeaders} ).map(res => res).catch( err => this.handleError(err))
+  }
+
+  getTokenBalance() : Observable<any>{
+    this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
+    return this.http.post<any>(this.baseUrl+'contract/getTokenBalance', {}, {headers: this.PlatformcontentHeaders}).map(res => res).catch( err => this.handleError(err))
   }
 
 

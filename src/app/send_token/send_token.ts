@@ -26,9 +26,21 @@ export class SendToken {
   loading_send_token: boolean = true
   to_address: string
   error: string
+  loading: boolean = true
+  user_address : string
+  first_name: string
+  last_name: string
+  email: string
+  userdata: any
   constructor(fb: FormBuilder,public router: Router, public http: Http, public authHttp: AuthHttp, private PlatformService:PlatformService) {
     
     this.loading_send_token = false
+    this.jwt = localStorage.getItem('id_token');
+    this.userdata = JSON.parse(localStorage.getItem('userdata'))
+    this.userdata.first_name = localStorage.getItem('first_name')
+    this.userdata.last_name = localStorage.getItem('last_name')
+
+    this.user_address = this.userdata.user_address
     this.tokenForm = fb.group({
       to_address: [null,[Validators.required]],
       amount:[null,[Validators.required]]
