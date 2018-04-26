@@ -2,9 +2,9 @@ import { Component } from '@angular/core'
 import { Http } from '@angular/http'
 import { Router } from '@angular/router'
 import { AuthHttp } from 'angular2-jwt'
-import {PlatformService} from '../services/platform'
-import { contentHeaders } from '../common/headers'
-import { FormErrorComponent } from '../common/form.error'
+import {PlatformService} from '../../services/platform'
+import { contentHeaders } from '../../common/headers'
+import { FormErrorComponent } from '../../common/form.error'
 import { FormBuilder,
   FormControl,
   FormGroup,
@@ -12,7 +12,7 @@ import { FormBuilder,
   Validators } from '@angular/forms'
 declare var require: any
 
-const template = require('./send_token.html')
+const template = require('./token.html')
 
 @Component({
   selector: 'profile',

@@ -68,4 +68,6 @@ export class AdminHeader {
     this.type_str = (type==1) ? 'flash-success' : 'flash-error'  
     localStorage.removeItem(this.type_str)
   }
+
+
 }

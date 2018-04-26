@@ -9,16 +9,36 @@
     <ul class="sidebar-menu" data-widget="tree">
 
       <li class="active treeview">
-        <a href="/home">
-          <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+        <a (click)="home()">
+          <i class="fa fa-dashboard"></i> <span>Home</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
+
+
+
         <ul class="treeview-menu">
-          <li><a href="/profile"><i class="fa fa-book"></i> <span>Profile</span></a></li>
-          <li><a href="/transactions"><i class="fa fa-book"></i> <span>Transactions</span></a></li>
-          <li><a href="/sendToken"><i class="fa fa-book"></i> <span>Send to Other</span></a></li>
+          <li><a (click)="viewProfile()" style="cursor: pointer;"><i class="fa fa-book"></i> <span>Profile</span></a></li>
+          <li><a (click)="viewTransactions()" style="cursor: pointer;"><i class="fa fa-book"></i> <span>Transactions</span></a></li>
+          <li><a (click)="sendBitcoin()" style="cursor: pointer;"><i class="fa fa-circle-o"></i> Transfer - Bitcoin </a></li>
+              <li><a (click)="sendEth()" style="cursor: pointer;"><i class="fa fa-circle-o"></i>Transfer - ETH </a></li>
+              <li><a (click)="sendToken()" style="cursor: pointer;"><i class="fa fa-circle-o"></i>Transfer - AT$ Token </a></li>
+          <!-- <li><a href="/sendToken"><i class="fa fa-book"></i> <span>Send to Other</span></a></li> -->
+          <!-- <li class="treeview">
+            <a href="#">
+              <i class="fa fa-edit"></i> <span>Transfer</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu" style="display: none;">
+              <li><a href="send-bitcoin"><i class="fa fa-circle-o"></i> Bitcoin </a></li>
+              <li><a href="send-eth"><i class="fa fa-circle-o"></i> ETH </a></li>
+              <li><a href="send-token"><i class="fa fa-circle-o"></i> AT$ Token </a></li>
+            </ul>
+          </li> -->
+
         </ul>
       </li>
 

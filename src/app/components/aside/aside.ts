@@ -15,4 +15,32 @@ export class AsideComponent {
   constructor(public router: Router, public http: Http) {
 
   }
+
+  /**
+   * routes method at view level
+   */
+
+  viewProfile(){
+    this.router.navigate(['profile']);
+  }
+
+  viewTransactions(){
+    this.router.navigate(['transactions']);
+  }
+
+  sendBitcoin(){
+    this.router.navigate(['send-bitcoin'])
+  }
+
+  sendEth(){
+    this.router.navigate(['send-eth'])
+  }
+
+  sendToken(){
+    this.router.navigate(['send-token'])
+  }
+
+  home(){
+    this.router.navigate(['home'])
+  }
 }

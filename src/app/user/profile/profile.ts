@@ -41,14 +41,6 @@ export class Profile {
     this.last_name = (localStorage.getItem('last_name')) ? localStorage.getItem('last_name') : this.userdata.last_name
     this.email = this.userdata.email
 
-    // console.log(JSON.parse(localStorage.getItem('userdata1')))
-
-    // localStorage.removeItem('userdata1')
-
-
-    
-
-
     this.profileForm = fb.group({
       first_name: [null,[Validators.required]],
       last_name:[null,[Validators.required]]

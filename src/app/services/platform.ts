@@ -15,7 +15,6 @@ export class PlatformService{
   baseUrl :string =  'http://localhost:3003/'
   PlatformcontentHeaders: any = new HttpHeaders()
 	constructor(private http:HttpClient){
-
     this.PlatformcontentHeaders = contentHeaders
 	}
 
@@ -49,9 +48,19 @@ export class PlatformService{
     return this.http.put<any>(this.baseUrl  +  'user/edit-profile',body,{headers:this.PlatformcontentHeaders}).map(res => res).catch( err => this.handleError(err))
   }
 
-  sendToken(body: any): Observable<any> {
+  sendBitcoin(body: any): Observable<any> {
     this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
     return this.http.post<any>(this.baseUrl + 'transaction/create', body, {headers: this.PlatformcontentHeaders} ).map(res => res).catch( err => this.handleError(err))
+  }
+
+  sendEth(body: any): Observable<any> {
+    this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
+    return this.http.post<any>(this.baseUrl + 'contract/trans_to_addr', body, {headers: this.PlatformcontentHeaders} ).map(res => res).catch( err => this.handleError(err))
+  }
+
+  sendToken(body: any): Observable<any> {
+    this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
+    return this.http.post<any>(this.baseUrl + 'contract/trans_token', body, {headers: this.PlatformcontentHeaders} ).map(res => res).catch( err => this.handleError(err))
   }
 
   getTransactionsList(body: any): Observable<any> {
