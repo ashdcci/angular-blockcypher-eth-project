@@ -55,7 +55,7 @@ export class PlatformService{
 
   sendEth(body: any): Observable<any> {
     this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
-    return this.http.post<any>(this.baseUrl + 'contract/trans_to_addr', body, {headers: this.PlatformcontentHeaders} ).map(res => res).catch( err => this.handleError(err))
+    return this.http.post<any>(this.baseUrl + 'eth/trans_to_addr', body, {headers: this.PlatformcontentHeaders} ).map(res => res).catch( err => this.handleError(err))
   }
 
   sendToken(body: any): Observable<any> {
@@ -73,6 +73,11 @@ export class PlatformService{
     return this.http.post<any>(this.baseUrl+'contract/getTokenBalance', {}, {headers: this.PlatformcontentHeaders}).map(res => res).catch( err => this.handleError(err))
   }
 
+  getEthBalance() : Observable<any>{
+    this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
+    return this.http.post<any>(this.baseUrl+'eth/getBalance', {}, {headers: this.PlatformcontentHeaders}).map(res => res).catch( err => this.handleError(err))
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -83,11 +88,13 @@ export class PlatformService{
       // The response body may contain clues as to what went wrong,
       console.error(
         `Backend returned code ${error.status}, `  +
-        `body was: ${error.error}`);
+        `body was: ${error.error.message}`);
     }
     // return an ErrorObservable with a user-facing error message
-    return new ErrorObservable(
-      'Something bad happened; please try again later.');
+    return new ErrorObservable({
+      'message':error.error.message, 'status':error.status
+    }
+       );
   };
 
 

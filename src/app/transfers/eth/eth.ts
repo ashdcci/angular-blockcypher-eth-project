@@ -24,7 +24,7 @@ export class SendEth {
   jwt: string
   balance: any = 0
   loading_send_token: boolean = true
-  to_address: string
+  eth_address: string
   error: string
   loading: boolean = true
   user_address : string
@@ -42,7 +42,7 @@ export class SendEth {
     console.log(this.userdata)
     this.user_address = this.userdata.eth_address
     this.ethFrom = fb.group({
-      to_address: [null,[Validators.required]],
+      eth_address: [null,[Validators.required]],
       amount:[null,[Validators.required]]
     })
   }
@@ -87,12 +87,13 @@ export class SendEth {
           },
           error => {
             this.loading_send_token = false
-            this.error = `${error.error.message}`
+            console.log(error)
+            this.error = `${error.message}`
             localStorage.setItem('flash-error','Problam in sending ETH');
-            if(error.status==401 || error.status==400){
-              this.ethFrom.controls['to_address'].setErrors({
-                notexist: true })
-            }
+            // if(error.status==401 || error.status==400){
+            //   // this.ethFrom.controls['eth_address'].setErrors({
+            //   //   notexist: true })
+            // }
           }
         )
 

@@ -22,10 +22,12 @@ export class Home {
   loading_send : boolean = true
   loading_recd : boolean = true
   loading_token : boolean = true
+  loading_eth : boolean = true
   total_send: any = 0
   total_recd: any = 0
   recd_amount: any = 0
   total_token : any = 0
+  total_eth : any  = 0
   as1: any
   as2: any
   as3: any
@@ -47,6 +49,7 @@ export class Home {
     this.getTotalSend()
     this.getTotalReceived()
     this.getTotalToken()
+    this.getTotalEth()
     
   }
 
@@ -146,5 +149,18 @@ export class Home {
       console.log(error)
     })
   }
+
+
+  getTotalEth(){
+    this.PlatformService.getEthBalance().subscribe(response => {
+      this.loading_eth = false
+      this.total_eth = response.balance +' ETH'
+  },
+  error => {
+    console.log(error)
+  })
+  }
+
+
 
 }

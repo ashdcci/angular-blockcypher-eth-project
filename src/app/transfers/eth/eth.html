@@ -30,8 +30,8 @@
                     <label for="inputName" class="col-sm-2 control-label">To Address</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="to_address" [formControl]="ethFrom.controls['to_address']" placeholder="Enter Address">
-                      <div *ngIf="ethFrom.controls['to_address'].hasError('required') && ethFrom.controls['to_address'].touched" class="alert alert-danger">Address is Required.</div>
+                      <input type="text" class="form-control" id="eth_address" [formControl]="ethFrom.controls['eth_address']" placeholder="Enter Address">
+                      <div *ngIf="ethFrom.controls['eth_address'].hasError('required') && ethFrom.controls['eth_address'].touched" class="alert alert-danger">Address is Required.</div>
                     </div>
                   </div>
 
