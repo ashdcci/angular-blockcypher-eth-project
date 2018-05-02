@@ -24,7 +24,7 @@ export class SendToken {
   jwt: string
   balance: any = 0
   loading_send_token: boolean = true
-  to_address: string
+  eth_address: string
   error: string
   loading: boolean = true
   user_address : string
@@ -40,9 +40,9 @@ export class SendToken {
     this.userdata.first_name = localStorage.getItem('first_name')
     this.userdata.last_name = localStorage.getItem('last_name')
 
-    this.user_address = this.userdata.user_address
+    this.user_address = this.userdata.eth_address
     this.tokenForm = fb.group({
-      to_address: [null,[Validators.required]],
+      eth_address: [null,[Validators.required]],
       amount:[null,[Validators.required]]
     })
   }
@@ -78,7 +78,10 @@ export class SendToken {
           response => {
             this.loading_send_token = false
             if(response.status == 0){
-              this.error = `${response.messages.msg}`
+              this.error = `${response.message}`
+            }else if(response.tx_receipt.status == '0x0'){
+              this.error = `problam in sending token`
+              
             }else{
               localStorage.setItem('flash-success','Token Send Successfully!!!');
               this.router.navigate(['home']);
@@ -90,7 +93,7 @@ export class SendToken {
             this.error = `${error.error.message}`
             localStorage.setItem('flash-error','Problam in sending token');
             if(error.status==401 || error.status==400){
-              this.tokenForm.controls['to_address'].setErrors({
+              this.tokenForm.controls['eth_address'].setErrors({
                 notexist: true })
             }
           }
