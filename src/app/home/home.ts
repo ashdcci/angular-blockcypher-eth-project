@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
 import {PlatformService} from '../services/platform'
 declare var require: any;
-
 const styles = require('./home.css');
 const template = require('./home.html');
 
@@ -12,9 +11,10 @@ const template = require('./home.html');
 @Component({
   selector: 'home',
   template: template,
-  styles: [ styles ]
+  styles: [ styles ],
+  // providers:[SocketService]
 })
-export class Home {
+export class Home implements OnInit  {
 
   jwt: string;
   balance: any = 0
@@ -34,9 +34,12 @@ export class Home {
   timer1:any
   timer2:any
   timer3:any
+
+
   constructor(public router: Router, public http: Http, public authHttp: AuthHttp, private PlatformService:PlatformService) {
     this.jwt = localStorage.getItem('id_token');
-    
+    //private SocketService: SocketService
+    // this.SocketService.faucet_token(localStorage.getItem('id_token'));
     // this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
   }
 
@@ -50,7 +53,7 @@ export class Home {
     this.getTotalReceived()
     this.getTotalToken()
     this.getTotalEth()
-    
+
   }
 
 
@@ -154,7 +157,7 @@ export class Home {
   getTotalEth(){
     this.PlatformService.getEthBalance().subscribe(response => {
       this.loading_eth = false
-      this.total_eth = response.balance +' ETH'
+      this.total_eth = response.balance
   },
   error => {
     console.log(error)

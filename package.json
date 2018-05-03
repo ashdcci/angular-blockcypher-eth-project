@@ -28,9 +28,11 @@
     "angular2-jwt": "^0.2.3",
     "core-js": "^2.4.1",
     "ng2-toastr": "^4.1.2",
+    "ngx-socket-io": "^1.0.8",
     "portfinder": "^1.0.13",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^5.4.2",
+    "socket.io": "^2.1.0",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

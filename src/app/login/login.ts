@@ -68,6 +68,7 @@ export class Login {
                   notexist: true });
               }else{
                 console.log(response.data.access_token)
+                localStorage.setItem('faucet_token', response.data.faucet)
                 localStorage.setItem('id_token', response.data.access_token);
                 localStorage.setItem('email', response.data.email);
                 localStorage.setItem('userdata',JSON.stringify(response.data));

@@ -30,6 +30,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages'
 import { ToastModule } from 'ng2-toastr/ng2-toastr'
 import { DataTableModule } from "angular2-datatable"
 
+
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp( new AuthConfig({}), http, options)
 }

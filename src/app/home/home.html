@@ -94,7 +94,7 @@
         <!-- small box -->
         <div class="small-box bg-green">
           <div class="inner">
-            <h3 *ngIf="!loading_token">{{total_eth}}</h3>
+            <h3 *ngIf="!loading_token">{{total_eth | number:'1.1-5'}} ETH</h3>
             <img *ngIf="loading_token" class="bal-loader" src="/public/img/msg.gif" alt="loading" />
             <img [hidden]="loading_token" (load)="onLoad()" src="{{ source }}" />
             <p>Total ETH</p>
