@@ -26,7 +26,7 @@
         <input class="form-control" type="text" placeholder="enter email here" [formControl]="signupForm.controls['email']">
         <div *ngIf="signupForm.controls['email'].hasError('required') && signupForm.controls['email'].touched" class="alert alert-danger">You must add an email.</div>
         <div *ngIf="signupForm.controls['email'].hasError('pattern') && signupForm.controls['email'].touched" class="alert alert-danger">Email must be in valid format.</div>
-        <div *ngIf="signupForm.controls['email'].hasError('notexist') && signupForm.controls['email'].touched" class="alert alert-danger">Email is not exist on system.</div>
+        <div *ngIf="signupForm.controls['email'].hasError('exists') && signupForm.controls['email'].touched" class="alert alert-danger">This Email is already exist on system.</div>
       </div>
       <div class="form-group" [ngClass]="{'has-error':!signupForm.controls['password'].valid && signupForm.controls['password'].touched}">
         <label>Password:</label>

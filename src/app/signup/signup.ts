@@ -44,20 +44,25 @@ export class Signup {
       this.PlatformService.register(body)
         .subscribe(
           response => {
+            console.log(response.data)
+            if(response.data.access_token!==undefined){
+              localStorage.setItem('flash-info','congrats, you will get 1000 AT$ token which will credited your account in some moment!!!');
+              // return
+              localStorage.setItem('id_token', response.data.access_token);
+              localStorage.setItem('email', response.data.email);
+              localStorage.setItem('userdata',JSON.stringify(response.data));
+              localStorage.setItem('faucet_token', response.data.faucet)
+              this.router.navigate(['home']);
+            }
 
-
-            // return
-             localStorage.setItem('id_token', response.data.access_token);
-             localStorage.setItem('email', response.data.email);
-             localStorage.setItem('userdata',JSON.stringify(response.data));
-             this.router.navigate(['home']);
 
           },
           error => {
-            this.error = `${error.messages.msg}`;
+            console.log(error)
+            // this.error = `${error.message}`;
             if(error.status==401){
               this.signupForm.controls['email'].setErrors({
-                notexist: true });
+                exists: true });
             }
           }
         );

@@ -14,7 +14,7 @@ import { socket } from '../../services/socket'
 @Component({
   selector: 'admin-header',
   // template: (tokenNotExpired(null ,localStorage.getItem('id_token') )) ? after_auth : before_auth,
-  template: (localStorage.getItem('id_token')!==null) ? after_auth : before_auth,
+  template: (localStorage.getItem('id_token')) ? after_auth : before_auth,
 })
 export class AdminHeader {
   type_str: any
@@ -23,11 +23,13 @@ export class AdminHeader {
   first_name: string
   last_name: string
   email: string
+  email_token : string
   userdata: any
   private socket = socket;
   faucet_token : any = 0
   constructor(public router: Router, public http: Http, public toastr: ToastsManager, private vcr: ViewContainerRef) {
     this.jwt = localStorage.getItem('id_token');
+    this.email_token = localStorage.getItem('email');
     this.toastr.setRootViewContainerRef(vcr);
     this.userdata = JSON.parse(localStorage.getItem('userdata'))
     this.userdata.first_name = localStorage.getItem('first_name')
@@ -47,6 +49,7 @@ export class AdminHeader {
     event.preventDefault();
     localStorage.removeItem('id_token')
     localStorage.removeItem('userdata')
+    localStorage.removeItem('faucet_token')
     localStorage.clear();
 
     console.log('token after logout === ',localStorage.getItem('id_token'))
@@ -65,16 +68,20 @@ export class AdminHeader {
     }else if(localStorage.getItem('flash-error')){
       this.toastr.error(localStorage.getItem('flash-error'));
       this.removeFlashStorage(2)
+    }else if(localStorage.getItem('flash-info')){
+      this.toastr.info(localStorage.getItem('flash-info'));
+      this.removeFlashStorage(3)
     }
-    console.log('faucet token ', this.faucet_token)
+    console.log('faucet token ', parseInt(this.faucet_token))
     if(parseInt(this.faucet_token) == 0){
       this.socket.emit('faucet_token',this.jwt)
     }
 
-    
+    /**
+     * Complete Faucet Socket
+     */
     this.socket.on('complete_faucet_'+this.jwt, (data) => {
-      console.log('return argument : ', data);
-
+    
       if(data.status == 1){
         localStorage.setItem('faucet_token', '1');
         this.toastr.success('AT$ token Faucet Successfully!!!');
@@ -87,11 +94,23 @@ export class AdminHeader {
 
 
     });
+
+    /** 
+     * Receive Eth Token
+     */
+    this.socket.on('receive_eth_'+this.userdata.eth_address, (data) =>{
+      if(data.status == 1){
+        this.toastr.success('you have received '+data.eth_balance+' ETH');
+        this.removeFlashStorage(1)
+      }
+    })
+
+
     
   }
 
   removeFlashStorage(type: any){
-    this.type_str = (type==1) ? 'flash-success' : 'flash-error'  
+    this.type_str = (type==1) ? 'flash-success' : ((type==3) ? 'flash-info' : 'flash-error')
     localStorage.removeItem(this.type_str)
   }
 

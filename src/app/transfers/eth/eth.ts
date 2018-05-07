@@ -89,11 +89,10 @@ export class SendEth {
             this.loading_send_token = false
             console.log(error)
             this.error = `${error.message}`
-            localStorage.setItem('flash-error','Problam in sending ETH');
-            // if(error.status==401 || error.status==400){
-            //   // this.ethFrom.controls['eth_address'].setErrors({
-            //   //   notexist: true })
-            // }
+            if(error.status==500){
+              localStorage.setItem('flash-error','Problam in sending ETH');
+            }
+            
           }
         )
 
