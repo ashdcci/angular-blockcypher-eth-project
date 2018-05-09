@@ -1,40 +1,97 @@
-// import { Injectable } from '@angular/core';
-// import { Socket } from 'ngx-socket-io';
- 
-// @Injectable()
-// export class SocketService {
-//     token : any 
-//     constructor(private socket: Socket) { 
-//         console.log(51454)
-//         this.token = localStorage.getItem('id_token')
-//     }
- 
-//     sendMessage(msg: string){
-//         console.log(msg)
-//         this.socket.emit("addTodo", msg);
-//     }
-    
-//     addTodo() {
-//         return this.socket
-//             .fromEvent("addTodo")
-//             .map( data => data);
-//     }
+import { Injectable } from '@angular/core';
 
-//     faucet_token(token : string){
-//         console.log(token)
-//         this.socket.emit("faucet_token", token);
-//     }
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import * as io from 'socket.io-client';
 
-//     complete_faucet(){
-//         return this.socket.fromEvent('complete_faucet_').map( data => data).subscribe(response =>{
-//             console.log(response)
-//         })
-//     }
+@Injectable()
+export class SocketService {
+  private url = 'http://localhost:3003';  
+  private socket;
+  
+    constructor(){
+        this.socket = io(this.url);
+    }
+
+  sendMessage(message){
+    this.socket.emit('add-message', message);    
+  }
+  
+  receiverEth(ethAddress) {
+    let observable = new Observable(observer => {
+      this.socket = io(this.url);
+      this.socket.on('receive_eth_'+ethAddress, (data) => {
+        observer.next(data);    
+      });
+      return () => {
+        this.socket.disconnect();
+      };  
+    })     
+    return observable;
+  }  
+
+  faucetToken(token){
+    this.socket.emit('faucet_token',token)
+  }
+
+  senderEth(ethAddress) {
+    let observable = new Observable(observer => {
+      this.socket = io(this.url);
+      this.socket.on('sender_eth_'+ethAddress, (data) => {
+        observer.next(data);    
+      });
+      return () => {
+        this.socket.disconnect();
+      };  
+    })     
+    return observable;
+  } 
+  
+  
+
+  receiverToken(ethAddress) {
+    let observable = new Observable(observer => {
+      this.socket = io(this.url);
+      this.socket.on('receive_token_'+ethAddress, (data) => {
+        observer.next(data);    
+      });
+      return () => {
+        this.socket.disconnect();
+      };  
+    })     
+    return observable;
+  }  
 
 
-// }
+  senderToken(ethAddress) {
+    let observable = new Observable(observer => {
+      this.socket = io(this.url);
+      this.socket.on('sender_token_'+ethAddress, (data) => {
+        observer.next(data);    
+      });
+      return () => {
+        this.socket.disconnect();
+      };  
+    })     
+    return observable;
+  }
+
+  completeFaucet(token){
+    let observable = new Observable(observer => {
+        this.socket = io(this.url);
+        this.socket.on('complete_faucet_'+token, (data) => {
+          observer.next(data);    
+        });
+        return () => {
+          this.socket.disconnect();
+        };  
+      })     
+      return observable;
+  }
+
+}
 
 
-import io from "socket.io-client";
-let url = 'http://localhost:3003';
-export let socket = io.connect(url);
+// import io from "socket.io-client";
+// let url = 'http://localhost:3003';
+// export let socket = io.connect(url);

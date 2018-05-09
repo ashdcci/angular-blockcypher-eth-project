@@ -13,11 +13,11 @@ import { FormBuilder,
   Validators } from '@angular/forms';
 declare var require: any;
 const styles   = require('./login.css');
-const template = require('./login.html');
+let template_login = require('./login.html');
 
 @Component({
   selector: 'login',
-  template: template,
+  template: template_login,
   styles: [ styles ],
   providers: [PlatformService]
 })

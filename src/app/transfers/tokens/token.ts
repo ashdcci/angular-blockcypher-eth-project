@@ -79,13 +79,11 @@ export class SendToken {
             this.loading_send_token = false
             if(response.status == 0){
               this.error = `${response.message}`
-            }else if(response.tx_receipt.status == '0x0'){
-              this.error = `problam in sending token`
-              
             }else{
-              localStorage.setItem('flash-success','Token Send Successfully!!!');
+              localStorage.setItem('flash-info','you give get notification when transaction is complete.');
               this.router.navigate(['home']);
             }
+            
 
           },
           error => {

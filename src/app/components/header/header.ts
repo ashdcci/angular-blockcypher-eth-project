@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef } from '@angular/core';
+import { Component, ViewContainerRef, OnInit, OnDestroy } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
@@ -7,7 +7,7 @@ import { contentHeaders } from '../../common/headers';
 declare var require:any;
 const after_auth = require('./after_auth.html');
 const before_auth = require('./before_auth.html');
-import { socket } from '../../services/socket'
+import { SocketService } from '../../services/socket'
 
 
 
@@ -15,8 +15,10 @@ import { socket } from '../../services/socket'
   selector: 'admin-header',
   // template: (tokenNotExpired(null ,localStorage.getItem('id_token') )) ? after_auth : before_auth,
   template: (localStorage.getItem('id_token')) ? after_auth : before_auth,
+
+  providers:[SocketService]
 })
-export class AdminHeader {
+export class AdminHeader implements OnInit, OnDestroy {
   type_str: any
   jwt : string
   user_address : string
@@ -25,9 +27,10 @@ export class AdminHeader {
   email: string
   email_token : string
   userdata: any
-  private socket = socket;
+  connection;
+  socket_data :any  = {}
   faucet_token : any = 0
-  constructor(public router: Router, public http: Http, public toastr: ToastsManager, private vcr: ViewContainerRef) {
+  constructor(public router: Router, public http: Http, public toastr: ToastsManager, private vcr: ViewContainerRef, private SocketService: SocketService) {
     this.jwt = localStorage.getItem('id_token');
     this.email_token = localStorage.getItem('email');
     this.toastr.setRootViewContainerRef(vcr);
@@ -72,17 +75,17 @@ export class AdminHeader {
       this.toastr.info(localStorage.getItem('flash-info'));
       this.removeFlashStorage(3)
     }
-    console.log('faucet token ', parseInt(this.faucet_token))
+    
     if(parseInt(this.faucet_token) == 0){
-      this.socket.emit('faucet_token',this.jwt)
+      this.SocketService.faucetToken(this.jwt)
     }
 
     /**
      * Complete Faucet Socket
      */
-    this.socket.on('complete_faucet_'+this.jwt, (data) => {
-    
-      if(data.status == 1){
+    this.connection = this.SocketService.completeFaucet(this.jwt).subscribe(socketData => {
+      this.socket_data = socketData
+      if(this.socket_data.status == 1){
         localStorage.setItem('faucet_token', '1');
         this.toastr.success('AT$ token Faucet Successfully!!!');
         this.removeFlashStorage(1)
@@ -91,22 +94,80 @@ export class AdminHeader {
         this.toastr.error('Problam in faucet token');
         this.removeFlashStorage(2)
       }
-
+      this.socket_data = {}
 
     });
 
-    /** 
-     * Receive Eth Token
-     */
-    this.socket.on('receive_eth_'+this.userdata.eth_address, (data) =>{
-      if(data.status == 1){
-        this.toastr.success('you have received '+data.eth_balance+' ETH');
+
+    this.connection = this.SocketService.receiverEth(this.userdata.eth_address).subscribe(socketData => {
+      
+      this.socket_data = socketData
+      // console.log('sender socket data:',this.socket_data,this.socket_data.status)
+      if(this.socket_data.status == 1){
+        this.toastr.success('you have received '+this.socket_data.eth_balance+' ETH');
         this.removeFlashStorage(1)
       }
+      this.socket_data = {}
+    })
+
+
+    this.connection = this.SocketService.senderEth(this.userdata.eth_address).subscribe(socketData =>{
+      
+      this.socket_data = socketData
+      // console.log('sender socket data:',this.socket_data,this.socket_data.status)
+      if(this.socket_data.status == 2){
+        this.toastr.info('you give get notification when transaction is complete.');
+        this.removeFlashStorage(3)
+      }else if(this.socket_data.status==1){
+        this.toastr.success(this.socket_data.status+' ETH is debited to your account');
+        this.removeFlashStorage(1)
+      }else if(this.socket_data.status==0){
+        this.toastr.error('Problam in sending ETH balance');
+        this.removeFlashStorage(1)
+      }
+
+      this.socket_data = {}
+    })
+
+
+
+    this.connection = this.SocketService.receiverToken(this.userdata.eth_address).subscribe(socketData => {
+      
+      this.socket_data = socketData
+      // console.log('sender socket data:',this.socket_data,this.socket_data.status)
+      if(this.socket_data.status == 1){
+        this.toastr.success('you have received '+this.socket_data.eth_balance+' AT$');
+        this.removeFlashStorage(1)
+      }
+      this.socket_data = {}
+    })
+
+
+    this.connection = this.SocketService.senderToken(this.userdata.eth_address).subscribe(socketData =>{
+      
+      this.socket_data = socketData
+      // console.log('sender socket data:',this.socket_data,this.socket_data.status)
+      if(this.socket_data.status == 2){
+        this.toastr.info('you give get notification when transaction is complete.');
+        this.removeFlashStorage(3)
+      }else if(this.socket_data.status==1){
+        this.toastr.success(this.socket_data.status+' AT$ token is debited to your account');
+        this.removeFlashStorage(1)
+      }else if(this.socket_data.status==0){
+        this.toastr.error('Problam in sending AT$ Tokens');
+        this.removeFlashStorage(1)
+      }
+
+      this.socket_data = {}
     })
 
 
     
+  }
+
+
+  ngOnDestroy() : void {
+    this.connection.unsubscribe();
   }
 
   removeFlashStorage(type: any){
