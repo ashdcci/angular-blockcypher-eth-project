@@ -15,8 +15,8 @@ const template = require('./signup.html');
 
 @Component({
   selector: 'signup',
-  template: template,
-  styles: [ styles ],
+  templateUrl: './signup.html',
+  styleUrls: [ './signup.css' ],
   providers:[PlatformService]
 })
 export class Signup {

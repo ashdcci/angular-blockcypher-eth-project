@@ -8,7 +8,7 @@ const aside = require('./aside.html');
 
 @Component({
   selector: 'sidebar',
-  template: aside,
+  templateUrl: './aside.html',
 })
 export class AsideComponent {
 

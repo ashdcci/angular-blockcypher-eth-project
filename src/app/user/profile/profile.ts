@@ -16,7 +16,7 @@ const template = require('./profile.html');
 
 @Component({
   selector: 'profile',
-  template: template,
+  templateUrl: './profile.html',
   providers:[PlatformService]
 })
 export class Profile {
@@ -30,6 +30,9 @@ export class Profile {
   email: string
   userdata: any
   error: string;
+  errorMessage: any  = ''
+  state: any
+  source: any = ''
   constructor(fb: FormBuilder,public router: Router, public http: Http, public authHttp: AuthHttp, private PlatformService:PlatformService) {
     this.jwt = localStorage.getItem('id_token');
     this.userdata = JSON.parse(localStorage.getItem('userdata'))

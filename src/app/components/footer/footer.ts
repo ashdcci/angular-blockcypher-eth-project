@@ -9,7 +9,7 @@ const before_auth = require('./before_auth.html');
 
 @Component({
   selector: 'admin-footer',
-  template: (tokenNotExpired()) ? after_auth : before_auth,
+  templateUrl: (localStorage.getItem('id_token')) ? './after_auth.html' : './before_auth.html',
   encapsulation: ViewEncapsulation.None,
 })
 export class AdminFooter {

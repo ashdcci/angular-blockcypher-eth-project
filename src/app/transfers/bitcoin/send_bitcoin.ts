@@ -15,8 +15,8 @@ declare var require: any
 const template = require('./send_bitcoin.html')
 
 @Component({
-  selector: 'profile',
-  template: template,
+  selector: 'send-bitcoin',
+  templateUrl: './send_bitcoin.html',
   providers:[PlatformService]
 })
 export class SendBitcoin {
@@ -32,6 +32,8 @@ export class SendBitcoin {
   last_name: string
   email: string
   userdata: any
+  errorMessage: any  = ''
+  state: any
   constructor(fb: FormBuilder,public router: Router, public http: Http, public authHttp: AuthHttp, private PlatformService:PlatformService) {
     
     this.loading_send_token = false

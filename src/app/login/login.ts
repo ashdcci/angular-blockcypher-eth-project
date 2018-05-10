@@ -17,8 +17,8 @@ let template_login = require('./login.html');
 
 @Component({
   selector: 'login',
-  template: template_login,
-  styles: [ styles ],
+  templateUrl: './login.html',
+  styleUrls: [ './login.css' ],
   providers: [PlatformService]
 })
 export class Login {

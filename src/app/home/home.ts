@@ -10,8 +10,8 @@ const template = require('./home.html');
 
 @Component({
   selector: 'home',
-  template: template,
-  styles: [ styles ],
+  templateUrl: './home.html',
+  styleUrls: [ './home.css' ],
   // providers:[SocketService]
 })
 export class Home implements OnInit  {
@@ -34,7 +34,7 @@ export class Home implements OnInit  {
   timer1:any
   timer2:any
   timer3:any
-
+  source : any = ''
 
   constructor(public router: Router, public http: Http, public authHttp: AuthHttp, private PlatformService:PlatformService) {
     this.jwt = localStorage.getItem('id_token');

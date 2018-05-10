@@ -14,7 +14,7 @@ import { SocketService } from '../../services/socket'
 @Component({
   selector: 'admin-header',
   // template: (tokenNotExpired(null ,localStorage.getItem('id_token') )) ? after_auth : before_auth,
-  template: (localStorage.getItem('id_token')) ? after_auth : before_auth,
+  templateUrl: (localStorage.getItem('id_token')) ? './after_auth.html' : './before_auth.html',
 
   providers:[SocketService]
 })

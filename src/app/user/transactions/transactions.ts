@@ -12,7 +12,7 @@ const template = require('./transactions.html');
 
 @Component({
   selector: 'profile',
-  template: template,
+  templateUrl: './transactions.html',
   providers:[PlatformService]
 })
 export class Transactions {
@@ -30,10 +30,11 @@ export class Transactions {
   public rowsOnPage = 10;
   public sortBy = 'first_name';
   public sortOrder = 'asc';
+  public activePage = 1
   public amountOfRows = 0;
   public pseudoServer = [];
    // data supplied to the data table
-   private data: any[];
+   public data: any[];
    // array of currently selected entities in the data table
    selectedEntities: any[];
   constructor(public router: Router, public http: Http, public authHttp: AuthHttp, private PlatformService:PlatformService) {

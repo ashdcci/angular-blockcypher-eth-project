@@ -15,8 +15,8 @@ declare var require: any
 const template = require('./eth.html')
 
 @Component({
-  selector: 'profile',
-  template: template,
+  selector: 'send-eth',
+  templateUrl: './eth.html',
   providers:[PlatformService]
 })
 export class SendEth {
@@ -32,6 +32,8 @@ export class SendEth {
   last_name: string
   email: string
   userdata: any
+  errorMessage: any  = ''
+  state: any
   constructor(fb: FormBuilder,public router: Router, public http: Http, public authHttp: AuthHttp, private PlatformService:PlatformService) {
     
     this.loading_send_token = false
