@@ -82,7 +82,7 @@ export class SendEth {
             if(response.status == 0){
               this.error = `${response.messages.msg}`
             }else{
-              localStorage.setItem('flash-info','you give get notification when transaction is complete.');
+              localStorage.setItem('flash-info','you will get notification when transaction is complete.');
               this.router.navigate(['home']);
             }
 
