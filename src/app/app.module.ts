@@ -25,7 +25,9 @@ import { Interceptor } from './common/interceptors'
 import { SendBitcoin } from './transfers/bitcoin'
 import { SendEth } from './transfers/eth'
 import { SendToken } from './transfers/tokens'
-import { Transactions } from './user/transactions'
+import { BitcoinTransactions } from './user/transactions/bitcoin'
+import { EthTransactions } from './user/transactions/eth'
+import { TokenTransactions } from './user/transactions/tokens'
 import { FlashMessagesModule } from 'angular2-flash-messages'
 import { ToastModule } from 'ng2-toastr/ng2-toastr'
 import { DataTableModule } from "angular2-datatable"
@@ -50,7 +52,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     SendBitcoin,
     SendToken,
     SendEth,
-    Transactions
+    BitcoinTransactions,
+    EthTransactions,
+    TokenTransactions
   ],
   imports: [
     HttpModule,HttpClientModule, BrowserModule, FormsModule,ReactiveFormsModule,

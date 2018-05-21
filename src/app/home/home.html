@@ -24,7 +24,7 @@
         <!-- small box -->
         <div class="small-box bg-aqua">
           <div class="inner">
-            <h3 *ngIf="!loading_send">{{total_send}}</h3>
+            <h3 *ngIf="!loading_send">{{total_send  | number:'1.1-5'}} ฿</h3>
             <img *ngIf="loading_send" class="bal-loader" src="/public/img/msg.gif" alt="loading" />
             <img [hidden]="loading_send" (load)="onLoad()" src="{{ source }}" />
             <p>Total Send Money</p>
@@ -41,7 +41,7 @@
         <!-- small box -->
         <div class="small-box bg-aqua">
           <div class="inner">
-            <h3 *ngIf="!loading_recd">{{total_recd}}</h3>
+            <h3 *ngIf="!loading_recd">{{total_recd | number:'1.1-5'}} ฿</h3>
             <img *ngIf="loading_recd" class="bal-loader" src="/public/img/msg.gif" alt="loading" />
             <img [hidden]="loading_recd" (load)="onLoad()" src="{{ source }}" />
             <p>Total Received Money</p>
@@ -57,7 +57,7 @@
         <!-- small box -->
         <div class="small-box bg-green">
           <div class="inner">
-            <h3 *ngIf="!loading">{{balance}}</h3>
+            <h3 *ngIf="!loading">{{balance | number:'1.1-5'}} ฿</h3>
             <img *ngIf="loading" class="bal-loader" src="/public/img/msg.gif" alt="loading" />
             <img [hidden]="loading" (load)="onLoad()" src="{{ source }}" />
             <p>Total Balance</p>
@@ -75,7 +75,7 @@
         <!-- small box -->
         <div class="small-box bg-green">
           <div class="inner">
-            <h3 *ngIf="!loading_token">{{total_token}}</h3>
+            <h3 *ngIf="!loading_token">{{total_token}} AT$</h3>
             <img *ngIf="loading_token" class="bal-loader" src="/public/img/msg.gif" alt="loading" />
             <img [hidden]="loading_token" (load)="onLoad()" src="{{ source }}" />
             <p>Total Token</p>

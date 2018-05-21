@@ -114,7 +114,7 @@ export class Home implements OnInit  {
   getBalance(){
     this.PlatformService.getUserBalance().subscribe(response=>{
         this.loading = false;
-        this.balance = response.body.final_balance * 0.00000001 +' ฿'
+        this.balance = response.body.final_balance * 0.00000001
     },
     error=>{
       console.log(error)
@@ -125,7 +125,7 @@ export class Home implements OnInit  {
     this.PlatformService.getSendMoney().subscribe(response=>{
         this.loading_send = false;
         this.total_send = (response.total_send > 0) ?  (response.total_send * 0.00000001) : 0
-        this.total_send = this.total_send +' ฿'
+        this.total_send = this.total_send
     },
     error=>{
       console.log(error)
@@ -136,7 +136,7 @@ export class Home implements OnInit  {
     this.PlatformService.getRecdMoney().subscribe(response=>{
         this.loading_recd = false;
         this.total_recd = (response.total_send > 0) ?  (response.total_send * 0.00000001) : 0
-        this.total_recd = this.total_recd +' ฿'
+        this.total_recd = this.total_recd
     },
     error=>{
       console.log(error)
@@ -146,7 +146,7 @@ export class Home implements OnInit  {
   getTotalToken(){
     this.PlatformService.getTokenBalance().subscribe(response => {
         this.loading_token = false
-        this.total_token = response.token +' AT$'
+        this.total_token = response.token
     },
     error => {
       console.log(error)

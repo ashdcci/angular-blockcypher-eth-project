@@ -43,4 +43,14 @@ export class AsideComponent {
   home(){
     this.router.navigate(['home'])
   }
+
+  transactions_bitcoin(){
+    this.router.navigate(['bitcoin-transactions'])
+  }
+  transactions_eth(){
+    this.router.navigate(['eth-transactions'])
+  }
+  transactions_token(){
+    this.router.navigate(['token-transactions'])
+  }
 }

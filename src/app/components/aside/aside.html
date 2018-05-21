@@ -20,22 +20,29 @@
 
         <ul class="treeview-menu">
           <li><a (click)="viewProfile()" style="cursor: pointer;"><i class="fa fa-book"></i> <span>Profile</span></a></li>
-          <li><a (click)="viewTransactions()" style="cursor: pointer;"><i class="fa fa-book"></i> <span>Transactions</span></a></li>
+          <!-- <li><a (click)="viewTransactions()" style="cursor: pointer;"><i class="fa fa-book"></i> <span>Transactions</span></a></li> -->
+
+          
           <li><a (click)="sendBitcoin()" style="cursor: pointer;"><i class="fa fa-circle-o"></i> Transfer - Bitcoin </a></li>
               <li><a (click)="sendEth()" style="cursor: pointer;"><i class="fa fa-circle-o"></i>Transfer - ETH </a></li>
               <li><a (click)="sendToken()" style="cursor: pointer;"><i class="fa fa-circle-o"></i>Transfer - AT$ Token </a></li>
+
+
+              <li><a (click)="transactions_bitcoin()" style="cursor: pointer;"><i class="fa fa-circle-o"></i> Transactions - Bitcoin </a></li>
+              <li><a (click)="transactions_eth()" style="cursor: pointer;"><i class="fa fa-circle-o"></i>Transactions - ETH </a></li>
+              <li><a (click)="transactions_token()" style="cursor: pointer;"><i class="fa fa-circle-o"></i>Transactions - AT$ Token </a></li>
           <!-- <li><a href="/sendToken"><i class="fa fa-book"></i> <span>Send to Other</span></a></li> -->
           <!-- <li class="treeview">
             <a href="#">
-              <i class="fa fa-edit"></i> <span>Transfer</span>
+              <i class="fa fa-edit"></i> <span>Transactions</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu" style="display: none;">
-              <li><a href="send-bitcoin"><i class="fa fa-circle-o"></i> Bitcoin </a></li>
-              <li><a href="send-eth"><i class="fa fa-circle-o"></i> ETH </a></li>
-              <li><a href="send-token"><i class="fa fa-circle-o"></i> AT$ Token </a></li>
+              <li><a (click)="transactions-bitcoin()"><i class="fa fa-circle-o"></i> Bitcoin </a></li>
+              <li><a (click)="transactions-eth()"><i class="fa fa-circle-o"></i> ETH </a></li>
+              <li><a (click)="transactions-token()"><i class="fa fa-circle-o"></i> AT$ Token </a></li>
             </ul>
           </li> -->
 

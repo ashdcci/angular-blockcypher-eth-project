@@ -3,19 +3,19 @@ import { Http } from '@angular/http';
 import { DecimalPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
-import {PlatformService} from '../../services/platform'
-import { contentHeaders } from '../../common/headers';
+import {PlatformService} from '../../../services/platform'
+import { contentHeaders } from '../../../common/headers';
 
 declare var require: any;
 
-const template = require('./transactions.html');
+// const template = require('./transactions.html');
 
 @Component({
-  selector: 'profile',
-  templateUrl: './transactions.html',
+  selector: 'eth-transactions',
+  templateUrl: './eth_transactions.html',
   providers:[PlatformService]
 })
-export class Transactions {
+export class EthTransactions {
   
   jwt: string;
   balance: any = 0
@@ -61,7 +61,7 @@ export class Transactions {
   }
 
   getTransactions(){
-    this.PlatformService.getTransactionsList({tx_type: 1})
+    this.PlatformService.getEthTransactionsList({tx_type: 2})
       .subscribe(
         response => {
           this.data = response.tx_data;

@@ -68,6 +68,11 @@ export class PlatformService{
     return this.http.post<any>(this.baseUrl+'transaction/getTransactions', body, {headers: this.PlatformcontentHeaders} ).map(res => res).catch( err => this.handleError(err))
   }
 
+  getEthTransactionsList(body: any): Observable<any> {
+    this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
+    return this.http.post<any>(this.baseUrl+'transaction/getEthTransactions', body, {headers: this.PlatformcontentHeaders} ).map(res => res).catch( err => this.handleError(err))
+  }
+
   getTokenBalance() : Observable<any>{
     this.PlatformcontentHeaders = this.PlatformcontentHeaders.set('x-access-token', localStorage.getItem('id_token'));
     return this.http.post<any>(this.baseUrl+'contract/getTokenBalance', {}, {headers: this.PlatformcontentHeaders}).map(res => res).catch( err => this.handleError(err))
