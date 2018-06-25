@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,TemplateRef } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
 import {PlatformService} from '../services/platform'
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 declare var require: any;
 const styles = require('./home.css');
 const template = require('./home.html');
@@ -35,12 +37,30 @@ export class Home implements OnInit  {
   timer2:any
   timer3:any
   source : any = ''
+  modalRef: BsModalRef;
 
-  constructor(public router: Router, public http: Http, public authHttp: AuthHttp, private PlatformService:PlatformService) {
+  values = [
+    { id: 3432, name: "Recent" },
+    { id: 3442, name: "Most Popular" },
+    { id: 3352, name: "Rating" }
+  ];
+  public selid: any = 3442
+  // selectedCity = this.values[1];
+  selectedCity : any
+
+  constructor(public router: Router, public http: Http, public authHttp: AuthHttp, private PlatformService:PlatformService, private modalService: BsModalService) {
     this.jwt = localStorage.getItem('id_token');
+    
+    // console.log(this.selectedCity)
+    // this.selid = 3442
     //private SocketService: SocketService
     // this.SocketService.faucet_token(localStorage.getItem('id_token'));
     // this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.selid = 3352
+    this.modalRef = this.modalService.show(template);
   }
 
   onLoad() {
@@ -54,6 +74,18 @@ export class Home implements OnInit  {
     this.getTotalToken()
     this.getTotalEth()
 
+  }
+
+  clickme():any{
+    console.log('hello')
+    // this.onChange(this.selectedCity)
+    this.selid = 3352
+    // this.selectedCity = this.values[2];
+  }
+
+  onChange(event): void {  // event will give you full breif of action
+    const newVal = event.target.value;
+    console.log(newVal);
   }
 
 

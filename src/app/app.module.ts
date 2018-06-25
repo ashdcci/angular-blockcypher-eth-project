@@ -31,7 +31,7 @@ import { TokenTransactions } from './user/transactions/tokens'
 import { FlashMessagesModule } from 'angular2-flash-messages'
 import { ToastModule } from 'ng2-toastr/ng2-toastr'
 import { DataTableModule } from "angular2-datatable"
-
+import { ModalModule } from 'ngx-bootstrap';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp( new AuthConfig({}), http, options)
@@ -64,7 +64,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     RouterModule.forRoot(routes, {
       useHash: true
     }),
-    DataTableModule
+    DataTableModule,
+    ModalModule.forRoot()
   ],
   providers: [
     AuthGuard,NonAuthGuard,AuthHttp,Location,{provide: LocationStrategy, useClass: PathLocationStrategy},PlatformService,
