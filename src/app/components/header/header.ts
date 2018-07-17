@@ -39,10 +39,10 @@ export class AdminHeader implements OnInit, OnDestroy {
     this.userdata.last_name = localStorage.getItem('last_name')
     this.faucet_token = (localStorage.getItem('faucet_token')) ? localStorage.getItem('faucet_token') : 0
     this.user_address = this.userdata.user_address
-    this.first_name = (localStorage.getItem('first_name')) ? localStorage.getItem('first_name')  : this.userdata.first_name
+    this.first_name = (localStorage.getItem('first_name')) ? localStorage.getItem('first_name')  : this.email_token
     this.last_name = (localStorage.getItem('last_name')) ? localStorage.getItem('last_name') : this.userdata.last_name
     this.email = this.userdata.email
-
+    
     this.router.routeReuseStrategy.shouldReuseRoute = function(){
       return false;
     } 
@@ -85,6 +85,7 @@ export class AdminHeader implements OnInit, OnDestroy {
      */
     this.connection = this.SocketService.completeFaucet(this.jwt).subscribe(socketData => {
       this.socket_data = socketData
+      console.log(this.jwt,this.socket_data)
       if(this.socket_data.status == 1){
         localStorage.setItem('faucet_token', '1');
         this.toastr.success('AT$ token Faucet Successfully!!!');

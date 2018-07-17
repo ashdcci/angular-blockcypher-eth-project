@@ -8,14 +8,16 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, retry } from 'rxjs/operators';
 import { contentHeaders } from '../common/headers';
 import { HttpHeaders } from '@angular/common/http';
+import {environment} from '../../environments/environment'
 
 @Injectable()
 export class PlatformService{
 
-  baseUrl :string =  'http://localhost:3003/'
+  baseUrl :string =  environment.apiUrl
   PlatformcontentHeaders: any = new HttpHeaders()
 	constructor(private http:HttpClient){
     this.PlatformcontentHeaders = contentHeaders
+    console.log(this.baseUrl,environment.apiUrl)
 	}
 
   login(body: any): Observable<any> {
