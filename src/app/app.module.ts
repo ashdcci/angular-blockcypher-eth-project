@@ -10,6 +10,7 @@ import { Login } from './login'
 import { Signup } from './signup'
 import { Home } from './home'
 import { Profile } from './user/profile'
+import {Message} from './message'
 import { FormErrorComponent } from './common/form.error'
 import { AUTH_PROVIDERS, AuthHttp,AuthConfig } from 'angular2-jwt'
 import { DataFilterPipe } from './common/data-filter.pipe'
@@ -54,7 +55,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     SendEth,
     BitcoinTransactions,
     EthTransactions,
-    TokenTransactions
+    TokenTransactions,
+    Message
   ],
   imports: [
     HttpModule,HttpClientModule, BrowserModule, FormsModule,ReactiveFormsModule,

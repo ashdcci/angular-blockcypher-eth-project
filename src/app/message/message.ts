@@ -16,7 +16,7 @@ declare var require: any
 
 @Component({
   selector: 'message',
-  templateUrl: './message.html',
+  templateUrl: './messages.html',
   providers:[PlatformService]
 })
 export class Message {
