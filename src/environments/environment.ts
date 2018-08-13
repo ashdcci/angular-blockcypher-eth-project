@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://34.221.96.232:3003/'
+  apiUrl:'https://eth-web3-node.herokuapp.com/'
 };
