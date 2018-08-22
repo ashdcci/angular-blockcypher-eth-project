@@ -22,8 +22,9 @@ export class SocketService {
     let observable = new Observable(observer => {
       this.socket = io(this.url);
       this.socket.on('receive_eth_'+ethAddress, (data) => {
+        this.socket.disconnect();
         observer.next(data);   
-        this.socket.disconnect(); 
+         
       });
       return () => {
         this.socket.disconnect();

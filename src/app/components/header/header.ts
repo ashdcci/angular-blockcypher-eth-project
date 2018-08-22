@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewContainerRef, OnInit, OnDestroy, Input } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
@@ -19,6 +19,8 @@ import { SocketService } from '../../services/socket'
   providers:[SocketService]
 })
 export class AdminHeader implements OnInit, OnDestroy {
+  // @Input() childData: {prop1: string, prop2: string};
+  question : any;
   type_str: any
   jwt : string
   user_address : string
@@ -30,6 +32,31 @@ export class AdminHeader implements OnInit, OnDestroy {
   connection;
   socket_data :any  = {}
   faucet_token : any = 0
+
+
+  // get prop2(){
+  //   console.log(5521,this.childData)
+  //   return this.childData.prop2;
+  // }
+  // get prop1(){
+  //   return this.childData.prop1;
+  // }
+
+  // get childData(){
+  //   console.log(8484884,this.childData)
+  //   return this.childData;
+  // }
+
+
+  private _childData: any;
+    @Input()
+    set childData(parentData02: any) {
+        // every time the data from the parent changes this will run
+        console.log('after get api: ',parentData02);
+        this._childData = parentData02; // ...or do some other crazy stuff
+    }
+    get childData(): any { return this._childData; }
+
   constructor(public router: Router, public http: Http, public toastr: ToastsManager, private vcr: ViewContainerRef, private SocketService: SocketService) {
     this.jwt = localStorage.getItem('id_token');
     this.email_token = localStorage.getItem('email');
@@ -46,6 +73,9 @@ export class AdminHeader implements OnInit, OnDestroy {
     this.router.routeReuseStrategy.shouldReuseRoute = function(){
       return false;
     } 
+
+    // console.log(this.question, this.childData)
+
   }
 
   logout(){
@@ -65,6 +95,10 @@ export class AdminHeader implements OnInit, OnDestroy {
 
   ngOnInit(): void{
     
+    this.question = this.childData;
+    console.log('from home component: ',this.question);
+
+
     if(localStorage.getItem('flash-success')){
       this.toastr.success(localStorage.getItem('flash-success'));
       this.removeFlashStorage(1)

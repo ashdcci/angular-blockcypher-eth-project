@@ -17,7 +17,7 @@ const template = require('./home.html');
   // providers:[SocketService]
 })
 export class Home implements OnInit  {
-
+  parentData :any = {};
   jwt: string;
   balance: any = 0
   loading: boolean = true
@@ -73,6 +73,18 @@ export class Home implements OnInit  {
     this.getTotalReceived()
     this.getTotalToken()
     this.getTotalEth()
+
+    setTimeout(() => {
+    //   this.parentData = [{
+    //     username: 'asa',
+    //     pwd:'2121'
+    //   },
+    // {
+    //   username: 'bcd',
+    //     pwd:'32323'
+    // }]
+      
+    }, 2000)
 
   }
 
@@ -179,10 +191,20 @@ export class Home implements OnInit  {
     this.PlatformService.getTokenBalance().subscribe(response => {
         this.loading_token = false
         this.total_token = response.token
+        // this.Counter = this.total_token
+        // console.log(this.Counter)
+        this.parentData = response
     },
     error => {
       console.log(error)
     })
+  }
+
+  ngAfterContentInit() {
+    // console.log(this.Counter);
+    // if(!!this.Counter){         
+                  
+    // }
   }
 
 

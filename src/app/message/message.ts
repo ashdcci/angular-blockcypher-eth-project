@@ -46,12 +46,9 @@ export class Message {
 
 
   constructor(fb: FormBuilder,public router: Router, public http: Http, public authHttp: AuthHttp, private PlatformService:PlatformService) {
-    this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-    console.log(this.web3)
+    this.web3 = new Web3(new Web3.providers.HttpProvider("http://192.168.1.72:8545"));
     this.shh = this.web3.shh;
-    console.log(this.shh)
-    // this.shh.generateSymKeyFromPassword(this.defaultPwd).then(symKeyID => console.log)
-
+    
 
 
     this.loading_send_token = false
@@ -106,13 +103,13 @@ export class Message {
     this.data.asymKeyId = '9acd5567090cfd678e2374b84374715d250bf3f867e8ac21952eba279e10b97c';
     this.data.asymPubKey = "0x0481cb49387b170626a4edc7642b213473a86cadf0ec781582013b6198c86ebe8c01c52f2a0c22b33ab17f1facaa1f58c7cd889b1d60e3963a2fb40459bf43beae";
 
-    this.defaultRecipientPubKey =  await this.shh.getPublicKey(this.data.asymKeyId)
-    console.log('defaultRecipientPubKey1 =>',this.defaultRecipientPubKey)
+    // this.defaultRecipientPubKey =  await this.shh.getPublicKey(this.data.asymKeyId)
+    // console.log('defaultRecipientPubKey1 =>',this.defaultRecipientPubKey)
 
     let filter = {
       topic:defaultTopic,
-      privateKeyID: this.data.asymKeyId,
-      // symKeyID: ''
+      // privateKeyID: this.data.asymKeyId,
+      symKeyID: ''
     };
 
     // if (this.data.asym) {
@@ -127,7 +124,7 @@ export class Message {
         await this.shh.generateSymKeyFromPassword(this.defaultPwd).then(symKeyID => this.data.symKeyId = symKeyID)
       }
 
-      // filter.symKeyID = this.data.symKeyId;
+      filter.symKeyID = this.data.symKeyId;
     
 
 
@@ -193,9 +190,9 @@ export class Message {
       powTarget: 2.01,
       powTime: 100,
       payload: this.encodeToHex(JSON.stringify(msg)),
-      pubKey:this.defaultRecipientPubKey,
-      sig: this.data.asymKeyId,
-      // symKeyID: ''
+      // pubKey:this.defaultRecipientPubKey,
+      // sig: this.data.asymKeyId,
+      symKeyID: ''
     };
 
     // if (this.data.asym) {
@@ -203,7 +200,7 @@ export class Message {
     //   postData.sig = this.data.asymKeyId;
     // } else{
       
-      // postData.symKeyID = this.data.symKeyId;
+      postData.symKeyID = this.data.symKeyId;
     // }
      
     this.data.name = value.name
