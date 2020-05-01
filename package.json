@@ -11,7 +11,9 @@
     "e2e": "ng e2e",
     "build": "ng build --prod --output-hashing=none",
     "package": "cat dist/{vendor,polyfills,scripts,main}.bundle.js | gzip > elements.js.gz",
-    "serve": "http-server -p 8081 --gzip"
+    "serve": "http-server -p 8081 --gzip",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "private": true,
   "dependencies": {
@@ -38,7 +40,8 @@
     "rxjs": "^5.4.2",
     "socket.io": "^2.1.0",
     "web3": "^1.0.0-beta.35",
-    "zone.js": "^0.8.14"
+    "zone.js": "^0.8.14",
+    "snyk": "^*"
   },
   "devDependencies": {
     "@angular/cli": "1.4.10",
@@ -61,5 +64,6 @@
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "typescript": "~2.3.3"
-  }
+  },
+  "snyk": true
 }
